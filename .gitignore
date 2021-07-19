@@ -1,0 +1,5 @@
+go.mod
+go.sum
+syslog.log
+BAMISV2.exe
+uadmin.db
