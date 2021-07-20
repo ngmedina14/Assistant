@@ -6,6 +6,8 @@ import requests
 import webbrowser as web
 import os
 import mechanicalsoup
+import beepy
+
 
 r = sr.Recognizer()
 m = sr.Microphone()
@@ -23,41 +25,49 @@ def speakthis(text):
     engine.runAndWait()
 
 
-def take_command():
+def speech_to_text():
+    # try:
+        with m as source: r.adjust_for_ambient_noise(source)
+        print("Listening")
+        with m as source: audio = r.listen(source)
+        print("Processing...")
         try:
-            with m as source: r.adjust_for_ambient_noise(source)
-            print("Listening")
-            with m as source: audio = r.listen(source)
-            print("Processing...")
-            try:
-                # recognize speech using Google Speech Recognition
-                command = ''
-                command = r.recognize_google(audio)
+            # recognize speech using Google Speech Recognition
+            command = ''
+            command = r.recognize_google(audio)
 
-                # we need some special handling here to correctly print unicode characters to standard output
-                if str is bytes:  # this version of Python uses bytes for strings (Python 2)
-                    command = u"{}".format(command).encode("utf-8")
-                else:  # this version of Python uses unicode for strings (Python 3+)
-                    command = "{}".format(command)
-                if 'alexa' in command:
-                    command = command.lower()
-                    command = command.replace('alexa ','')
-                    return command
-            except sr.UnknownValueError:
-                pass
-                #print("Oops! Didn't catch that")
-            except sr.RequestError as e:
-                speakthis("Ohh my God! Cannot connect from Google API; {0}".format(e))
-                pass
-        
-        except KeyboardInterrupt:
-             pass
-        command = ''
+            # we need some special handling here to correctly print unicode characters to standard output
+            if str is bytes:  # this version of Python uses bytes for strings (Python 2)
+                command = u"{}".format(command).encode("utf-8")
+            else:  # this version of Python uses unicode for strings (Python 3+)
+                command = "{}".format(command)
+            
+        except sr.UnknownValueError:
+            pass
+            #print("Oops! Didn't catch that")
+        except sr.RequestError as e:
+            speakthis("Ohh my God! Cannot connect from Google API; {0}".format(e))
+            pass
+    
+    # except KeyboardInterrupt:
+    #      pass
         return command
 
 def RunBot():
-    command = take_command()
-    print(command)
+    command = speech_to_text()
+    if command == '':
+        pass
+    elif 'alexa' == command:        
+        speakthis("Yes? what can I do for you")
+        beepy.make_sound.beep(sound=3)
+        command = speech_to_text()
+        features(command)
+    elif 'alexa' in command:
+        command = command.lower()
+        command = command.replace('alexa ','')
+        features(command)
+ 
+def features(command):
     if 'play' in command:
         song = command.replace('play ', '')
         speakthis('playing ' + song)
@@ -102,13 +112,13 @@ def RunBot():
         speakthis('the time is ' + time)
         os.system('nmcli c up Integritynet')
         web.open("http://192.168.149.54:5959/#no-back-button")
+    else:
+        speakthis('Sorry try again')
         
     # def search(topic: str) -> None:
     # """Searches about the topic on Google"""
     # link = 'https://www.google.com/search?q={}'.format(topic)
     # web.open(link)
- 
-
 
 while True:
     RunBot()
