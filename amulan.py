@@ -23,7 +23,7 @@ def speakthis(text):
 
 
 def take_command():
-         try:
+        try:
             with m as source: r.adjust_for_ambient_noise(source)
             print("Listening")
             with m as source: audio = r.listen(source)
@@ -49,10 +49,10 @@ def take_command():
                 speakthis("Ohh my God! Cannot connect from Google API; {0}".format(e))
                 pass
         
-         except KeyboardInterrupt:
+        except KeyboardInterrupt:
              pass
-            command = ''
-            return command
+        command = ''
+        return command
 
 def RunBot():
     command = take_command()
