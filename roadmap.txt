@@ -1,0 +1,4 @@
+For future development
+1 create a mobile app that connect through socket.io
+2 python application read the commands through socket.io and clear it when it read it
+3 connect a physical device that can be controlled through api 

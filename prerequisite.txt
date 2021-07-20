@@ -13,3 +13,4 @@ pip3 install portAudio
 pip install pyjokes
 pip install wikipedia
 pip install pywhatkit
+pip install MechanicalSoup #https://www.youtube.com/watch?v=pEkYihlpuRY&t=0s

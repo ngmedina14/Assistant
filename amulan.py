@@ -2,6 +2,9 @@ import speech_recognition as sr
 import pyttsx3
 import pywhatkit as kit
 import datetime
+import requests
+# import webbrowser as web
+import mechanicalsoup
 
 r = sr.Recognizer()
 m = sr.Microphone()
@@ -20,7 +23,7 @@ def speakthis(text):
 
 
 def take_command():
-        try:
+         try:
             with m as source: r.adjust_for_ambient_noise(source)
             print("Listening")
             with m as source: audio = r.listen(source)
@@ -46,10 +49,10 @@ def take_command():
                 speakthis("Ohh my God! Cannot connect from Google API; {0}".format(e))
                 pass
         
-        except KeyboardInterrupt:
-            pass
-        command = ''
-        return command
+         except KeyboardInterrupt:
+             pass
+            command = ''
+            return command
 
 def RunBot():
     command = take_command()
@@ -60,20 +63,42 @@ def RunBot():
         song = command.replace('play ', '')
         speakthis('playing ' + song)
         kit.playonyt(song)
+    elif 'search' in command:
+        search = command.replace('search ', '')
+        speakthis('searching ' + search)
+        kit.search(search)
+    elif 'what is' in command:
+        fetch = command.replace('what is ', '')
+        speakthis('Based on internet what is' + fetch)
+        speakthis(kit.info(fetch,3,1))
+    elif 'who is' in command:
+        fetch = command.replace('who is ', '')
+        speakthis('Based on internet who is' + fetch)
+        speakthis(kit.info(fetch,3,1))
+    elif 'define' in command:
+        fetch = command.replace('define ', '')
+        speakthis('Based on internet define' + fetch)
+        speakthis(kit.info(fetch,3,1))
     elif 'time' in command:
         time = datetime.datetime.now().strftime('%I:%M %p')
         speakthis('the time is ' + time)
-    # elif 'who the heck is' in command:
-    #     person = command.replace('who the heck is', '')
-    #     info = wikipedia.summary(person, 1)
-    #     print(info)
-    #     talk(info)
-    # elif 'date' in command:
-    #     talk('sorry, I have a headache')
-    # elif 'are you single' in command:
-    #     talk('I am in a relationship with wifi')
-    # elif 'joke' in command:
-    #     talk(pyjokes.get_joke())
+    elif 'code blue' in command:
+        time = datetime.datetime.now().strftime('%I:%M %p')
+        speakthis('the time is ' + time)
+        browser = mechanicalsoup.StatefulBrowser()
+        browser.open('http://192.168.149.54:5959/login#no-back-button')
+        # print(browser.get_url())
+        browser.select_form('form[method="POST"]')
+        browser["username"] = "009819"
+        browser["password"] = "pass1"
+        browser.submit_selected()
+        speakthis("You have successfully timed in")
+        
+    # def search(topic: str) -> None:
+    # """Searches about the topic on Google"""
+    # link = 'https://www.google.com/search?q={}'.format(topic)
+    # web.open(link)
+ 
 
 
 while True:
