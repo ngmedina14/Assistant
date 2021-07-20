@@ -3,7 +3,8 @@ import pyttsx3
 import pywhatkit as kit
 import datetime
 import requests
-# import webbrowser as web
+import webbrowser as web
+import os
 import mechanicalsoup
 
 r = sr.Recognizer()
@@ -57,8 +58,6 @@ def take_command():
 def RunBot():
     command = take_command()
     print(command)
-    #   search pywhatkit.search
-    #   what is pywhatkit.info
     if 'play' in command:
         song = command.replace('play ', '')
         speakthis('playing ' + song)
@@ -85,14 +84,24 @@ def RunBot():
     elif 'code blue' in command:
         time = datetime.datetime.now().strftime('%I:%M %p')
         speakthis('the time is ' + time)
+        os.system('nmcli c up Integritynet')
         browser = mechanicalsoup.StatefulBrowser()
         browser.open('http://192.168.149.54:5959/login#no-back-button')
-        # print(browser.get_url())
         browser.select_form('form[method="POST"]')
         browser["username"] = "009819"
         browser["password"] = "pass1"
         browser.submit_selected()
-        speakthis("You have successfully timed in")
+        if 'http://192.168.149.54:5959/#no-back-button' == browser.get_url():
+            speakthis("You have successfully timed in")
+        else:
+            speakthis("Somethings wrong")
+        browser.close()
+        #print(browser.get_url())
+    elif 'code red' in command:
+        time = datetime.datetime.now().strftime('%I:%M %p')
+        speakthis('the time is ' + time)
+        os.system('nmcli c up Integritynet')
+        web.open("http://192.168.149.54:5959/#no-back-button")
         
     # def search(topic: str) -> None:
     # """Searches about the topic on Google"""
