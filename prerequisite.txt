@@ -14,3 +14,7 @@ pip install pyjokes
 pip install wikipedia
 pip install pywhatkit
 pip install MechanicalSoup #https://www.youtube.com/watch?v=pEkYihlpuRY&t=0s
+
+
+How to run automatically
+https://websofttechs.com/tutorials/how-to-setup-python-script-autorun-in-ubuntu-18-04/
