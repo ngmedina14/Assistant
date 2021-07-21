@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 import speech_recognition as sr
 import pyttsx3
 import pywhatkit as kit
@@ -23,7 +25,7 @@ def speakthis(text):
     engine.say(text)
     print(text)
     engine.runAndWait()
-
+speakthis("Alexa is Listening!")
 
 def speech_to_text():
     # try:
