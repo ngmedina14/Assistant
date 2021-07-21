@@ -1,20 +1,21 @@
-Linux Dependencies to run my alexa
+#Linux Dependencies to run my alexa
 sudo apt-get install python3-pyaudio
-pip install SpeechRecognition
-
+sudo -H pip install SpeechRecognition
 sudo apt-get install espeak
 sudo apt install libespeak1
-pip install pyttsx3
+sudo -H pip install pyttsx3
 
-pip3 install pyAudio
+sudo -H pip3 install pyAudio
 
-pip3 install portAudio
+sudo -H pip3 install portAudio
 
-pip install pyjokes
-pip install wikipedia
-pip install pywhatkit
-pip install MechanicalSoup #https://www.youtube.com/watch?v=pEkYihlpuRY&t=0s
+sudo -H pip install pyjokes
+sudo -H pip install wikipedia
+sudo -H pip install pywhatkit
+sudo -H pip install MechanicalSoup #https://www.youtube.com/watch?v=pEkYihlpuRY&t=0s
 
+#Tips
+can run the application on start using Startup Application
 
-How to run automatically
+#How to run automatically
 https://websofttechs.com/tutorials/how-to-setup-python-script-autorun-in-ubuntu-18-04/
