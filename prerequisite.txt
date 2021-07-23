@@ -13,6 +13,7 @@ sudo -H pip install pyjokes
 sudo -H pip install wikipedia
 sudo -H pip install pywhatkit
 sudo -H pip install MechanicalSoup #https://www.youtube.com/watch?v=pEkYihlpuRY&t=0s
+sudo apt install gnome-screensaver
 
 #Tips
 can run the application on start using Startup Application

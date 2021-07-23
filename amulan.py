@@ -114,6 +114,9 @@ def features(command):
         speakthis('the time is ' + time)
         os.system('nmcli c up Integritynet')
         web.open("http://192.168.149.54:5959/#no-back-button")
+    elif 'lock screen' in command:
+        speakthis('Display Off')
+        os.system('gnome-screensaver-command -l')
     else:
         speakthis('Sorry try again')
         
